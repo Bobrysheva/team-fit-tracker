@@ -32,7 +32,7 @@ public class StartSessionServlet extends HttpServlet {
             userSession.setAttemptNumber(sessionRepository.sessionCount(username)+1);
         }
 
-        sessionRepository.addNewSession(username, userSession);
+        sessionRepository.addNewSession(userSession);
 
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("username", username);

@@ -9,10 +9,6 @@ public class SessionRepository {
     List<Session> sessions = new ArrayList<>();
     Map<String, List<Session>> sessionMap = new HashMap<String, List<Session>>();
 
-    public SessionRepository(Map<String, List<Session>> sessionMap) {
-        this.sessionMap = sessionMap;
-    }
-
     public SessionRepository() {
     }
 
@@ -24,28 +20,21 @@ public class SessionRepository {
         return sessionMap.get(name);
     }
 
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-    }
-
-    public void setSessionMap(Map<String, List<Session>> sessionMap) {
-        this.sessionMap = sessionMap;
-    }
-
-    public void addNewSession(String username, Session session) {
-        if (!sessionMap.containsKey(session.getName())) {
-            ArrayList<Session> sessions1 = new ArrayList<>();
-            sessions1.add(session);
-            sessionMap.put(session.getName(), sessions1);
+     public void addNewSession(Session session) {
+        String username = session.getName();
+        List <Session> userSessions = sessionMap.get(username);
+        if (userSessions == null) {
+            userSessions = new ArrayList<>();
+            userSessions.add(session);
+            sessionMap.put(session.getName(), userSessions);
         } else {
-            List<Session> updateSessions = sessionMap.get(session.getName());
-            updateSessions.add(session);
-            sessionMap.put(session.getName(), (ArrayList) updateSessions);
+            userSessions.add(session);
         }
     }
 
     public int sessionCount(String name) {
+        if (sessionMap.get(name)!=null) {
         List<Session> sessions1 = sessionMap.get(name);
-        return sessions1.size();
+        return sessions1.size();}
+        else return 0;}
     }
-}

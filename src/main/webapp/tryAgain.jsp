@@ -12,7 +12,7 @@
     ServletContext context = config.getServletContext();
     SessionRepository sessionRepository = (SessionRepository) context.getAttribute("sessionRepository");
     userSession.setAttemptNumber(sessionRepository.sessionCount(username)+1);
-    sessionRepository.addNewSession(username, userSession);
+    sessionRepository.addNewSession(userSession);
     int sessionNumber = sessionRepository.sessionCount(username);
     session.setAttribute("sessionNumber", sessionNumber);
     session.setAttribute("sessionObject", userSession);
